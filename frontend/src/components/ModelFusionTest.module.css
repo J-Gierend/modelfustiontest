@@ -11,15 +11,25 @@
 }
 
   .sidebar {
-    text-align: left;
+    text-align: center;
     width: 200px;
-    border-right: 3px solid #ccc;
+    border-right: 3px solid #39A7FF;
     padding: 10px;
+    user-select: none;
+    font-weight: bold;
   }
   
+  .sidebar p {
+    margin:  0 0 5px 0 ;
+    padding: 5px;
+    height: 20;
+    border: 1px solid #ccc;
+    background-color: #39A7FF;
+    user-select: none;
+  }
+
   .sidebar p:hover {
-    color: blue;
-    font-weight: bold;
+    background-color: #ddd;
   }
 
   .main {
