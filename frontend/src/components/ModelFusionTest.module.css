@@ -1,10 +1,27 @@
 .container {
-    width: 80vw;
-    height: 80vh;
+    display: flex;
+    width: 90vw;
+    height: 90vh;
     background-color: #87C4FF;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-family: 'Roboto', sans-serif;
     border: 10px solid #39A7FF;
     border-radius: 15px;
     margin-bottom: 50px;
 }
+
+  .sidebar {
+    text-align: left;
+    width: 200px;
+    border-right: 3px solid #ccc;
+    padding: 10px;
+  }
+  
+  .sidebar p:hover {
+    color: blue;
+    font-weight: bold;
+  }
+
+  .main {
+    flex: 1;
+  }

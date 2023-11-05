@@ -6,7 +6,7 @@ import { generateText, OpenAICompletionModel, streamText } from 'modelfusion';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'sss World!';
+    return 'Hello World!';
   }
   
   async getText(): Promise<string> {

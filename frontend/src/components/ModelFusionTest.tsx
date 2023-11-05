@@ -1,54 +1,33 @@
-import { useEffect, useState } from 'react';
-import styles from './ModelFusionTest.module.css';
-import axios from 'axios';
-import {BASE_URL} from '../config'
+import { useState } from "react";
+import styles from "./ModelFusionTest.module.css";
+import GenerateText from "./GenerateText";
+import GenerateTextStream from "./GenerateTextStream";
 
 const ModelFusionTest = () => {
-    const [generatedText, setGeneratedText] = useState("");
-    const [generatedTextStream, setGeneratedTextStream] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+  const [selectedComponent, setSelectedComponent] = useState("");
 
-    const generateText = async () => {
-        setIsLoading(true);
-        setGeneratedText("");
-        const response = await axios.get("/getText");
-        setGeneratedText(response.data);
-        setIsLoading(false);
-    };
+  const renderComponent = () => {
+    switch (selectedComponent) {
+      case 'GenerateText':
+        return <GenerateText />;
+      case 'GenerateTextStream':
+        return <GenerateTextStream />;
+      default:
+        return null;
+    }
+  }
 
-    const generateTextStream = async () => {
-        setIsLoading(true);
-        setGeneratedTextStream("");
-        const response = await fetch(`${BASE_URL}/getTextStream`);
-        if (response.body) {
-            const reader = response.body.getReader();
-            let decoder = new TextDecoder();
-    
-            reader.read().then(function processText({ done, value }) {
-                if (done) {
-                    setIsLoading(false);
-                    return;
-                }
-                let decodedText = decoder.decode(value);
-                setGeneratedTextStream(prevText => prevText + decodedText);
-                return reader.read().then(processText);
-            });
-        } else {
-            console.error('Response body is null');
-            setIsLoading(false);
-        }
-    };
-
-    return (
-        <div className={styles.container}>
-            <h1>OpenAI Text</h1>
-            <p>{generatedText}</p>
-            <button disabled={isLoading} onClick={generateText}>Generate Text</button>
-            <h1>OpenAI Text Stream</h1>
-            <p>{generatedTextStream}</p>
-            <button disabled={isLoading} onClick={generateTextStream}>Generate Text Stream</button>
-        </div>
-    );
-}
+  return (
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+      <p onClick={() => { console.log('Clicked!'); setSelectedComponent('GenerateText'); }}>generateText</p>
+      <p onClick={() => { console.log('Clicked!'); setSelectedComponent('GenerateTextStream'); }}>generateTextStream</p>
+      </div>
+      <div className={styles.main}>
+        {renderComponent()}
+      </div>
+    </div>
+  );
+};
 
 export default ModelFusionTest;
